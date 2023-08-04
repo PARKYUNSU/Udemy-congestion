@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+  <head>
+
+  </head>
+  <body style="background-color: #E7F2FE">
+    <div class="box-sizing">
+      <h1>쾌적한 길찾기</h1>
+      <div>
+        <form action="/" method="post">
+          <div style="display: flex; align-items: center;">
+            <input type="text" name="start_station" class="input-box start-station" placeholder="시작역" required>
+            <span type="button" id="swap-button">
+              <img src="../static/images/swap.png" alt="스왑 이미지" style="width: 50px; height: 50px;">
+            </span>
+            <input type="text" name="end_station" class="input-box end-station" placeholder="도착역" required>
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <div class="box-sizing2">
+      <div class='box-sizing3'>
+        <h3>추천시간</h3>
+
+        <div class='subway-box'>
+          <!-- div class='congestion-red congestion-{{ color_index }}' style='top: 0%; left: {{ 10 }}%;'-->
+
+          <div class='congestion congestion-red' style='top: 0%; left: {{ 10 }}%;'>
+            <div class='center-white'>혼잡</div>
+          </div>
+
+          <div class='congestion congestion-green' style='top: 0%; left: {{ 40 }}%;'>
+            <div class='center-black'>여유</div>
+          </div>
+
+          <div class='congestion congestion-blue' style='top: 0%; left: {{ 80 }}%;'>
+            <div class='center-black'>보통</div>
+          </div>
+          
+        </div>
+
+        <h3>혼잡도</h3>
+          <div class='congestion-red'>
+            <div class='center-white'>혼잡</div>
+          </div>
+          <div class='congestion-green'>
+            <div class='center-black'>여유</div>
+          </div>
+          <div class='congestion-blue'>
+            <div class='center-black'>보통</div>
+          </div>
+      </div>
+    </div>
+
+
+    <script>
+      const horizontalPercentage = {{ horizontal_percentage }};
+      const congestionRed = document.querySelector('.congestion');
+      const subwayBoxWidth = document.querySelector('.subway-box').clientWidth;
+      const congestionRedWidth = congestionRed.clientWidth;
+      const maxLeft = subwayBoxWidth - congestionRedWidth;
+
+      const calculateLeft = (percentage) => (percentage / 100) * maxLeft;
+      const setLeftPosition = (percentage) => {
+          const leftPosition = calculateLeft(percentage);
+          congestionRed.style.left = `${leftPosition}px`;
+      };
+
+      setLeftPosition(horizontalPercentage);
+
+      const colorClasses = ['blue', 'red', 'green'];
+      const setColorClass = (index) => {
+          congestionRed.classList.remove(...colorClasses);
+          congestionRed.classList.add(colorClasses[index]);
+      };
+
+      setColorClass(colorIndex);
+    </script>
+
+    <script src="../../static/js/swap.js"></script>
+
+    </body>
+
+</html>
+
+
+
+<!--
+  <body>
+  <p>time.html</p>
+    
+    <div class="left">
+
+      <form action="{{ url_for('time.result') }}" method="post" class='form'>
+        출발역을 입력하세요 : <input type="text" name="start_station" required><br>
+        환승하는 역이 있다면, 알려주세요 : <input type="text" name="trans_station"><br>
+        도착역을 입력하세요 : <input type="text" name="end_station" required><br>
+        <input type='submit' value='검색하기'>
+      </form>
+
+    </div>
+
+    <div class='updown'></div>
+
+    <div class="right">
+      {% if results %}
+        {% for result in results %}
+          <p> {{ result }} </p>
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+
+</html>
+-->
