@@ -66,7 +66,7 @@
       position: absolute;
       top: 0%;
       left: 0;
-      transform: translate(0%, -15%);
+      transform: translate(0%, -20%);
       font-size: 1em;
   }
 
@@ -129,7 +129,7 @@
     top: 20%;
     color: black;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 20px;
   }
 
   div.center-white{
@@ -137,7 +137,23 @@
     top: 20%;
     color: white;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 20px;
+  }
+
+  div.center-black2{
+    position: relative;
+    top: 20%;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  div.center-white2{
+    position: relative;
+    top: 20%;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
   }
 
 /* 일반 동그라미 */
