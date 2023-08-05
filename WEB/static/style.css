@@ -81,6 +81,17 @@
       overflow: visible;
   }
 
+  .subway-box2 {
+    width: 850px;
+    height: 20px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 auto;
+    font-size: 0.5em;
+    position: relative;
+    overflow: visible;
+  }
+
   .blue {
       background-color: #A1C5EC;
   }

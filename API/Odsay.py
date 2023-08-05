@@ -59,11 +59,11 @@ def metrojson(SID, EID):
             return "하선" if row["startID"] > row["endSID"] else "상선"
     stations_df["direction"] = stations_df.apply(get_direction, axis=1)
     
-    stations_df["time_difference"] = stations_df["travelTime"].diff()
-    stations_df.at[stations_df.index[0], "time_difference"] = stations_df.at[stations_df.index[0], "travelTime"]
+    # stations_df["time_difference"] = stations_df["travelTime"].diff()
+    # stations_df.at[stations_df.index[0], "time_difference"] = stations_df.at[stations_df.index[0], "travelTime"]
 
-    total_time_difference_sum = stations_df["time_difference"].sum()
-    stations_df["time_difference_percentage"] = (stations_df["time_difference"] / total_time_difference_sum) * 100
+    # total_time_difference_sum = stations_df["travelTime"].sum()
+    stations_df["time_difference_percentage"] = (stations_df["travelTime"] / globalTravelTime) * 100
 
     # 결과 DataFrame 출력
     return stations_df, drive_info_df
@@ -80,6 +80,8 @@ def result_list(df_stations, drive_info_df, congestion_ls):
     counts = [drive_info_df['stationCount'][i] for i in range(len(drive_info_df))] # 역 별 이동 역 개수
     lane = [drive_info_df['laneName'][i] for i in range(len(drive_info_df))] # 호선 정보
     percent_ls = list(df_stations['time_difference_percentage'])
+    percent_ls.insert(0, 0)
+    percent_ls.pop()
     travle_time_ls = list(df_stations['travelTime'])
     
     split_stations = []
@@ -89,7 +91,7 @@ def result_list(df_stations, drive_info_df, congestion_ls):
     for count in counts:
         split_stations.append(stations[:count])
         split_congestion.append(congestion_ls[:count])
-        split_minute.appned(travle_time_ls[:count])
+        split_minute.append(travle_time_ls[:count])
         
         del stations[:count]
         

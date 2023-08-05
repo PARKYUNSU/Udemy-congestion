@@ -12,6 +12,27 @@ def result():
     
     start_station = request.form.get('start_station')
     end_station = request.form.get('end_station')
+            
+    
+    if start_station[-1] == "역":
+        start_station = start_station[:-1]
+    
+    if end_station[-1] == "역":
+        end_station = end_station[:-1]
+    
+    if start_station == "서울역":
+        start_station = "서울역"
+    
+    if end_station == "서울역":
+        end_station = "서울역"
+        
+    if start_station == "서울":
+        start_station = "서울역"
+    
+    if end_station == "서울":
+        end_station = "서울역"
+    
+    
     
     SID, EID = Odsay.SID_EID(start_station, end_station) # SID, EID 구하는 함수
     df_stations, drive_info_df = Odsay.metrojson(SID, EID) # Odsay Data 구하는 함수

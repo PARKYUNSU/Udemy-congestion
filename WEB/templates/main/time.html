@@ -10,14 +10,16 @@
 
       <h1>쾌적한 길찾기</h1>
       
-        <form action="/" method="post">
+        <form action="{{ url_for('time.result') }}" method="POST">
           <div style="display: flex; align-items: center;">
             <input type="text" name="start_station" class="input-box start-station" placeholder="시작역" required>
             <span type="button" id="swap-button">
               <img src="../static/images/swap.png" alt="스왑 이미지" style="width: 50px; height: 50px;">
             </span>
             <input type="text" name="end_station" class="input-box end-station" placeholder="도착역" required>
+            <input type="submit" value='submit'>
           </div>
+        </form>
 
           <span class="time" id="selected-time"></span>
 
@@ -97,8 +99,6 @@
       <button class="timeset_btn_now" onclick="showSelectedTime()"><span class="btn_inner">이시간출발</span></button>
       <button class="timeset_btn_now" onclick="setToCurrentTime()"><span class="btn_inner">지금 출발</span></button>
 
-  </form>
-
   </div>
 
     <div class="box-sizing2">
@@ -106,21 +106,19 @@
         <h3>추천시간</h3>
 
         <div class='subway-box'>
-          <!-- div class='congestion-red congestion-{{ color_index }}' style='top: 0%; left: {{ 10 }}%;'-->
 
-          <div class='congestion red' style='top: 0%; left: {{ 10 }}%;'>
-            <div class='center-white'>혼잡</div>
-          </div>
+          {% for percent in percent_ls %}
+            
+            <div class='congestion red' style='top: 0%; left: {{ percent }}%;'>
+              <div class='center-white'>혼잡</div>
+            </div>
+            
+          {% endfor %}
 
-          <div class='congestion green' style='top: 0%; left: {{ 40 }}%;'>
-            <div class='center-black'>여유</div>
-          </div>
-
-          <div class='congestion blue' style='top: 0%; left: {{ 80 }}%;'>
-            <div class='center-black'>보통</div>
-          </div>
-          
         </div>
+        <div class='subway-box2'>
+        </div>
+
 
         <h3>혼잡도</h3>
           <div class='congestion-red'>
@@ -137,27 +135,29 @@
 
 
     <script>
-      const horizontalPercentage = {{ horizontal_percentage }};
-      const congestionRed = document.querySelector('.congestion');
-      const subwayBoxWidth = document.querySelector('.subway-box').clientWidth;
-      const congestionRedWidth = congestionRed.clientWidth;
-      const maxLeft = subwayBoxWidth - congestionRedWidth;
+      const horizontalPercentage = {{ horizontal_percentage }}; // horizontal_percentage 값이 이미 할당되어 있다고 가정합니다.
+        const colorIndex = {{ color_index }}; // color_index 값이 이미 할당되어 있다고 가정합니다.
 
-      const calculateLeft = (percentage) => (percentage / 100) * maxLeft;
-      const setLeftPosition = (percentage) => {
-          const leftPosition = calculateLeft(percentage);
-          congestionRed.style.left = `${leftPosition}px`;
-      };
+        const congestionRed = document.querySelector('.congestion');
+        const subwayBoxWidth = document.querySelector('.subway-box').clientWidth;
+        const congestionRedWidth = congestionRed.clientWidth;
+        const maxLeft = subwayBoxWidth - congestionRedWidth;
 
-      setLeftPosition(horizontalPercentage);
+        const calculateLeft = (percentage) => (percentage / 100) * maxLeft;
+        const setLeftPosition = (percentage) => {
+            const leftPosition = calculateLeft(percentage);
+            congestionRed.style.left = `${leftPosition}px`;
+        };
 
-      const colorClasses = ['blue', 'red', 'green'];
-      const setColorClass = (index) => {
-          congestionRed.classList.remove(...colorClasses);
-          congestionRed.classList.add(colorClasses[index]);
-      };
+        setLeftPosition(horizontalPercentage);
 
-      setColorClass(colorIndex);
+        const colorClasses = ['blue', 'red', 'green'];
+        const setColorClass = (index) => {
+            congestionRed.classList.remove(...colorClasses);
+            congestionRed.classList.add(colorClasses[index]);
+        };
+
+        setColorClass(colorIndex);
     </script>
 
     <script src="../../static/js/time.js"></script>
@@ -166,34 +166,3 @@
     </body>
 
 </html>
-
-
-
-<!--
-  <body>
-  <p>time.html</p>
-    
-    <div class="left">
-
-      <form action="{{ url_for('time.result') }}" method="post" class='form'>
-        출발역을 입력하세요 : <input type="text" name="start_station" required><br>
-        환승하는 역이 있다면, 알려주세요 : <input type="text" name="trans_station"><br>
-        도착역을 입력하세요 : <input type="text" name="end_station" required><br>
-        <input type='submit' value='검색하기'>
-      </form>
-
-    </div>
-
-    <div class='updown'></div>
-
-    <div class="right">
-      {% if results %}
-        {% for result in results %}
-          <p> {{ result }} </p>
-        {% endfor %}
-      {% endif %}
-    </div>
-    
-
-</html>
--->
