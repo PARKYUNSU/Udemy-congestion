@@ -7,8 +7,9 @@
   </head>
   <body style="background-color: #E7F2FE">
     <div class="box-sizing">
+
       <h1>쾌적한 길찾기</h1>
-      <div>
+      
         <form action="/" method="post">
           <div style="display: flex; align-items: center;">
             <input type="text" name="start_station" class="input-box start-station" placeholder="시작역" required>
@@ -17,10 +18,89 @@
             </span>
             <input type="text" name="end_station" class="input-box end-station" placeholder="도착역" required>
           </div>
-        </form>
 
+          <span class="time" id="selected-time"></span>
+
+      <div class="timeset_option timeset_option_hour">
+        <button class="timeset_btn_prev" onclick="changeHour(-1)"><span class="icon">이전</span></button>
+        <div>
+          <button class="timeset_btn_data" onclick="toggleHourLayer()">
+            <span class="btn_inner" id="hourValue">00시</span>
+          </button>
+          <!-- 시간 선택 리스트 -->
+          <div class="layer_timeset hour" hidden="">
+            <div class="wrap_scroll">
+              <ul class="layer_timeset_list">
+                <!-- 시간 선택 버튼들은 이곳에 추가 -->
+                <li><button class="selected" onclick="setHour(0)">00</button></li>
+                <li><button onclick="setHour(1)">01</button></li>
+                <li><button onclick="setHour(2)">02</button></li>
+                <li><button onclick="setHour(3)">03</button></li>
+                <li><button onclick="setHour(4)">04</button></li>
+                <li><button onclick="setHour(5)">05</button></li>
+                <li><button onclick="setHour(6)">06</button></li>
+                <li><button onclick="setHour(7)">07</button></li>
+                <li><button onclick="setHour(8)">08</button></li>
+                <li><button onclick="setHour(9)">09</button></li>
+                <li><button onclick="setHour(10)">10</button></li>
+                <li><button onclick="setHour(11)">11</button></li>
+                <li><button onclick="setHour(12)">12</button></li>
+                <li><button onclick="setHour(13)">13</button></li>
+                <li><button onclick="setHour(14)">14</button></li>
+                <li><button onclick="setHour(15)">15</button></li>
+                <li><button onclick="setHour(16)">16</button></li>
+                <li><button onclick="setHour(17)">17</button></li>
+                <li><button onclick="setHour(18)">18</button></li>
+                <li><button onclick="setHour(19)">19</button></li>
+                <li><button onclick="setHour(20)">20</button></li>
+                <li><button onclick="setHour(21)">21</button></li>
+                <li><button onclick="setHour(22)">22</button></li>
+                <li><button onclick="setHour(23)">23</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <button class="timeset_btn_next" onclick="changeHour(1)"><span class="icon">다음</span></button>
       </div>
-    </div>
+      
+      <!-- 분 선택 버튼 -->
+      <div class="timeset_option timeset_option_minute">
+        <button class="timeset_btn_prev" onclick="changeMinute(-5)"><span class="icon">이전</span></button>
+        <div>
+          <button class="timeset_btn_data" onclick="toggleMinuteLayer()">
+            <span class="btn_inner" id="minuteValue">00분</span>
+          </button>
+          <!-- 분 선택 리스트 -->
+          <div class="layer_timeset minute" hidden="">
+            <div class="wrap_scroll">
+              <ul class="layer_timeset_list">
+                <!-- 분 선택 버튼들은 이곳에 추가 -->
+                <li><button class="selected" onclick="setMinute(0)">00</button></li>
+                <li><button onclick="setMinute(5)">05</button></li>
+                <li><button onclick="setMinute(10)">10</button></li>
+                <li><button onclick="setMinute(15)">15</button></li>
+                <li><button onclick="setMinute(20)">20</button></li>
+                <li><button onclick="setMinute(25)">25</button></li>
+                <li><button onclick="setMinute(30)">30</button></li>
+                <li><button onclick="setMinute(35)">35</button></li>
+                <li><button onclick="setMinute(40)">40</button></li>
+                <li><button onclick="setMinute(45)">45</button></li>
+                <li><button onclick="setMinute(50)">50</button></li>
+                <li><button onclick="setMinute(55)">55</button></li>              
+                <!-- 나머지 분 버튼들도 추가 -->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <button class="timeset_btn_next" onclick="changeMinute(5)"><span class="icon">다음</span></button>
+      </div>
+      <button class="timeset_btn_now" onclick="showSelectedTime()"><span class="btn_inner">이시간출발</span></button>
+      <button class="timeset_btn_now" onclick="setToCurrentTime()"><span class="btn_inner">지금 출발</span></button>
+
+  </form>
+
+  </div>
+
     <div class="box-sizing2">
       <div class='box-sizing3'>
         <h3>추천시간</h3>
@@ -80,6 +160,7 @@
       setColorClass(colorIndex);
     </script>
 
+    <script src="../../static/js/time.js"></script>
     <script src="../../static/js/swap.js"></script>
 
     </body>

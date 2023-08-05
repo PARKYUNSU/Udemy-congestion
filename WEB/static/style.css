@@ -1,7 +1,7 @@
   
   .box-sizing {
     width:1000px;
-    height:200px;
+    height:300px;
     background-color: #FFFFFF;
     padding: 15px;
     box-sizing: content-box;
@@ -157,6 +157,159 @@
   }
 
 /* 일반 동그라미 */
+
+  /* 시간 표현 */
+
+  .time {
+    font-size: 16px;
+    font-weight: bold;
+    color: #081986;
+  }
+
+  /* "오늘" 텍스트 스타일 */
+  .time:before {
+    content: "오늘 ";
+    font-weight: normal;
+    color: #081986;
+  }
+
+  /* "출발" 텍스트 스타일 */
+  .time:after {
+    content: " 출발";
+    font-weight: normal;
+    color: #000000;
+  }
+
+  /* 공통 스타일 */
+  .timeset_option_box {
+  display: flex;
+  }
+
+  .timeset_option {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  }
+
+  .timeset_btn_data {
+  padding: 8px;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  }
+
+  .timeset_btn_data:hover {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  }
+
+  .timeset_btn_prev,
+  .timeset_btn_next {
+  padding: 8px;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  }
+
+  .timeset_btn_now {
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  }
+
+  /* 시간 선택 리스트 스타일 */
+  .layer_timeset_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  }
+
+  .layer_timeset_list li {
+  display: inline-block;
+  margin-right: 5px;
+  }
+
+  .layer_timeset_list button {
+  padding: 8px;
+  border: none;
+  background-color: #f0f0f0;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  }
+
+  .layer_timeset_list button.selected {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  }
+
+  /* 스크롤 가능한 리스트 스타일 */
+  .layer_timeset_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 나란히 배치 */
+  overflow-y: auto; /* 세로 방향으로 스크롤 가능하도록 설정 */
+  max-height: 100px; /* 보여질 버튼들의 최대 높이 조정 */
+  position: absolute; /* 위치를 화면 위로 고정 */
+  background-color: #fff; /* 배경색 설정 (필요에 따라 변경 가능) */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 (필요에 따라 변경 가능) */
+  z-index: 1; /* 다른 요소들보다 위에 표시되도록 설정 */
+  }
+
+  .layer_timeset_list li {
+  display: inline-block;
+  white-space: normal; /* 세로 방향으로 배치되도록 변경 */
+  margin-right: 5px;
+  }
+
+  .layer_timeset_list button {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background-color: #f0f0f0;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  }
+
+  .layer_timeset_list button.selected {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  }
+
+  .wrap_scroll {
+  overflow-y: auto;
+  max-height: 100px; /* 보여질 버튼들의 최대 높이 조정 */
+  white-space: nowrap; /* 가로로 나란히 배치 */
+  }
+
+  .start-station {
+      background-image: url('/static/images/circle.PNG'),url('/static/images/search.PNG'); /* 변경된 부분 */
+      background-size: 40px 40px, 40px 40px;
+      background-position: left 10px center, right 10px center;
+  }
+
+  .end-station {
+      background-image: url('/static/images/pin_icon.PNG'),url('/static/images/search.PNG'); /* 변경된 부분 */
+      background-size: 60px 50px, 40px 40px;
+      background-position: left center, right 10px center;
+  }
+
+  /* 시간표현 */
 
   div.left {
     width: 40%;

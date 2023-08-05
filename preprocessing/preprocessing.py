@@ -2,6 +2,7 @@ import pandas as pd
 import pickle
 import os
 
+# model에 필요한 전처리
 def melting(df):
     time_columns = df.columns[6:]
     df = pd.melt(
@@ -13,28 +14,16 @@ def melting(df):
     )
     return df
 
+# mapping
 def mapping(df, mapping_path):
     
     with open(mapping, 'rb') as fr:
         mapping = pickle.load(fr)
     
-    for i in range(len(df)):
-        df['역번호'].loc[i] = str(df['역번호'].loc[i])
-        if len(df['역번호'].loc[i]) < 4:
-            df['역번호'].loc[i] = "0"+df['역번호'].loc[i]
-    
-    # mapping
-    df['외부코드'] = (df['역번호'].replace(mapping)).astype("str")
-    df['외부코드'] = df['외부코드'].replace({"0260":"234-4"}) # 까치산역
-    
-    # API를 위한 값 변경
-    change_list = {"234-4":264, "234-3":263, "234-2":262, "234-1":261, "211-4":253, "211-3":254, "211-2":252, "211-1":251,
-                     "P549": 569, "P550":570, "P551":571, "P552":572, "P553":573, "P554":574, "P555":575}
-    
-    df['경로API_외부코드'] = df['외부코드'].replace(change_list)
-    df['경로API_외부코드'] = df['경로API_외부코드'].astype("str")
+    df['경로코드'] = df['외부코드'].replace(mapping)
     
     return df
+
 
 # 실행 예시
 
@@ -42,8 +31,6 @@ def mapping(df, mapping_path):
 # path = os.getcwd()
 # mapping_path = path+'/mapping.pickle'
 
-# 재영님 전처리(시간 컬럼 생성)
-# df = melting(df)
 
 # mapping
 # new_df = mapping(df, mapping_path)

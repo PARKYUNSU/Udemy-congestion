@@ -7,5 +7,5 @@ def create_app():
     from WEB.views import main_views, time_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(time_views.bp)
-
+    
     return app
