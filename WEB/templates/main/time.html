@@ -106,19 +106,19 @@
         <h3>추천시간</h3>
 
         <div class='subway-box'>
-
           {% for percent in percent_ls %}
-            
-            <div class='congestion red' style='top: 0%; left: {{ percent }}%;'>
-              <div class='center-white'>혼잡</div>
-            </div>
-            
+            {% set station = station_ls[loop.index0] %}
+              <div class='congestion red' style='top: 0%; left: {{ percent }}%;'>
+                <div class='center-white'>혼잡</div>
+                <div class='station-name' style='top: 0%; left: {{ percent }}%;'>
+                  <br><br>{{ station }}
+                </div>
+              </div>
           {% endfor %}
-
-        </div>
-        <div class='subway-box2'>
         </div>
 
+        <br>
+        <br>
 
         <h3>혼잡도</h3>
           <div class='congestion-red'>
@@ -158,6 +158,19 @@
         };
 
         setColorClass(colorIndex);
+
+        const stationName = document.querySelector('.station-name');
+        const subwayBox2Width = document.querySelector('.subway-box2').clientWidth;
+        const stationNameRedWidth = congestionRed.clientWidth;
+        const maxLeft = subwayBox2Width - stationNameRedWidth;
+
+        const calculateLeft = (percentage) => (percentage / 100) * maxLeft;
+                const setLeftPosition2 = (percentage) => {
+                    const leftPosition = calculateLeft(percentage);
+                    stationName.style.left = `${leftPosition}px`;
+                };
+
+        setLeftPosition2(horizontalPercentage);
     </script>
 
     <script src="../../static/js/time.js"></script>

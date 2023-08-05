@@ -1,7 +1,13 @@
 from flask import Blueprint, render_template, request
 from API import Odsay
+import pandas as pd
 
 bp = Blueprint('time', __name__, url_prefix='/time')
+
+color_dic = {'1호선': '#0052A4', '2호선': '#00A84D',
+'3호선': '#EF7C1C', '4호선': '#00A4E3', '5호선': '#996CAC',
+'6호선': '#CD7C2F', '7호선': '#747F00', '8호선': '#E6186C',
+'9호선': '#BDB092'}
 
 @bp.route('/')
 def main():
@@ -33,9 +39,9 @@ def result():
         end_station = "서울역"
     
     
-    
     SID, EID = Odsay.SID_EID(start_station, end_station) # SID, EID 구하는 함수
     df_stations, drive_info_df = Odsay.metrojson(SID, EID) # Odsay Data 구하는 함수
+    station_ls = Odsay.station_list(df_stations)
     
     # 시간 받는 거
     
@@ -43,6 +49,7 @@ def result():
     split_stations, split_congestion, split_minute, percent_ls, lane = Odsay.result_list(df_stations, drive_info_df, congestion_ls)
     
     cogestion_mapping = {}
+    color_ls = list(pd.Series(lane).replace(color_dic))
 
     # < 결과 예시 >
     # split_stations = [['서울역', '회현', '명동', '충무로'], (환승) ['동대문역사문화공원', '신당', '상왕십리', '왕십리', '한양대']]
@@ -54,4 +61,5 @@ def result():
     
     return render_template('main/time.html', 
                            split_stations=split_stations, split_congestion=split_congestion,
-                           split_minute=split_minute, percent_ls=percent_ls, lane=lane)
+                           split_minute=split_minute, percent_ls=percent_ls, lane=lane, station_ls=station_ls,
+                           color_ls=color_ls)
